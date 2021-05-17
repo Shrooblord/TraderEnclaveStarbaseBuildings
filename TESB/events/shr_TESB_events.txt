@@ -1,0 +1,131 @@
+namespace = tesb
+
+#check for Caravanserai
+event = {
+	id = tesb.0
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		every_country = {
+			if = {
+				#if this country has a Starbase of at least size Starport, which has a Trader Caravanserai built on it
+				limit = {
+					any_owned_starbase = {
+						has_starbase_size >= starbase_starport
+						has_starbase_building = trader_caravanserai
+					}
+				}
+
+				log = "Country: [This.GetName]: Owns at least one Caravanserai"
+
+				set_country_flag = owns_caravanserai
+				remove_modifier = envoy_taken
+			}
+
+			country_event = { id = tesb.101 days = 1 }
+		}
+	}
+}
+
+#check for Caravanserai building when the country flag is set
+event = {
+	id = tesb.1
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		every_country = {
+			if = {
+				limit = {
+					has_country_flag = owns_caravanserai
+				}
+	
+				log = "Country: [This.GetName]: Caravanserai flag found during monthly check"
+	
+				country_event = {
+					id = tesb.100
+					days = 1
+				}
+			}
+		}	
+	}
+}
+
+#Removes flag when Starbase gets destroyed / transfered to another Empire so you don't lose one Envoy too many (starbase loss through these means already drops the Envoy automatically)
+event = {
+	id = tesb.2
+	is_triggered_only = yes
+	hide_window = yes
+
+	immediate = {
+		log = "Country: [This.GetName]: triggered on_destroy or on_transfer of starbase!"
+
+		from = {
+			remove_country_flag = owns_caravanserai
+		}
+	}
+}
+
+#Check if the Caravanserai was demolished
+country_event = {
+	id = tesb.100
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		has_country_flag = owns_caravanserai
+	}
+
+	immediate = {
+		log = "Country: [This.GetName]: checking if Caravanserai still exists..."
+
+		country_event = {
+			id = tesb.101
+			days = 1
+		}
+	}
+}
+
+#Makes sure the Country still owns a Caravanserai and, if not, removes the Envoy it granted
+country_event = {
+	id = tesb.101
+	is_triggered_only = yes
+	hide_window = yes
+
+	trigger = {
+		has_country_flag = owns_caravanserai
+	}
+
+	immediate = {
+		log = "Country: [This.GetName]: do we need to remove an Envoy?"
+
+		if = {
+			limit = {
+				any_owned_starbase = {
+					has_starbase_size >= starbase_starport
+					has_starbase_building = trader_caravanserai
+				}
+			}
+
+			log = "Country: [This.GetName]: still owns a Caravanserai -- aborting"
+
+			remove_country_flag = owns_caravanserai
+		}
+
+		#if we get here and we haven't removed the flag yet, that means we owned 0 starbases with a Caravanserai... delete the Envoy!!
+		if = {
+			limit = {
+				has_country_flag = owns_caravanserai
+			}
+
+			log = "Country: [This.GetName]: Caravanserai missing! Removing envoy..."
+			
+			add_modifier = {
+				modifier = envoy_taken
+			}
+			
+			remove_country_flag = owns_caravanserai
+		}
+	}
+}

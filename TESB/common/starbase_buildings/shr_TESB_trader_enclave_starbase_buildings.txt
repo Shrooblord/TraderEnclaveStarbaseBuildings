@@ -69,7 +69,7 @@ trader_caravanserai = {
 	country_modifier = {
 		envoys_add = 1
 	}
-
+	
 	ai_build_at_chokepoint = yes
 	ai_build_outside_chokepoint = yes
 	ai_weight = {

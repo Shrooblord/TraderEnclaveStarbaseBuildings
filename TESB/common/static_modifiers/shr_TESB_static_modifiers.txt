@@ -1,0 +1,3 @@
+envoy_taken = {
+	envoys_add = 1
+}

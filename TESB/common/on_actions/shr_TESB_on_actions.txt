@@ -1,0 +1,18 @@
+on_monthly_pulse = {
+	events = {
+		tesb.0
+		tesb.1
+	}
+}
+
+on_starbase_transfer = {
+	events = {
+		tesb.2
+	}
+}
+
+on_starbase_destroyed = {
+	events = {
+		tesb.2
+	}
+}
