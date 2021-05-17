@@ -1,0 +1,6 @@
+spriteTypes = {
+	spriteType = {
+		name = "GFX_starbase_trader_caravanserai"
+		texturefile = "gfx/interface/icons/modules/sb_trader_caravanserai.dds"
+	}
+}
