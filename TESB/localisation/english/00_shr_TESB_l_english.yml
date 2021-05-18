@@ -4,4 +4,4 @@
  
  requires_trader:0 "§RRequires a §YTrader Enclave§! in the system.§!"
  requires_trader_high_opinion:0 "§RRequires the §YTrader Enclave§! to have:§!\n£opinion£ Opinion +50"
- requires_trader_trade:0 "§RRequires an §Yactive Trade Deal§! with the local Trader Enclave.§!"
+ requires_trader_trade:0 "§RRequires an §Yactive Trade Deal§! with the local §YTrader Enclave.§!§!"
