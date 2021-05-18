@@ -28,6 +28,8 @@ trader_caravanserai = {
 			fail_text = "requires_starport"
 			has_starbase_size >= starbase_starport
 		}
+
+		#trader enclave in system
 		custom_tooltip = {
 			fail_text = "requires_trader"
 			solar_system = {
@@ -40,19 +42,91 @@ trader_caravanserai = {
 				}
 			}
 		}
-		#custom_tooltip = {
-		#	fail_text = "requires_trader_trade"
-		#	solar_system = {
-		#		has_star_flag = enclave
-		#		any_fleet_in_system = {
-		#			exists = owner
-		#			owner = {
-		#				has_country_flag = trader_enclave_country
-		#				has_country_flag = think_tank@root.owner
-		#			}
-		#		}
-		#	}
-		#}
+
+		#trader enclave has high opinion of empire
+		custom_tooltip = {
+			fail_text = "requires_trader_high_opinion"
+
+			solar_system = {
+				has_star_flag = enclave
+				any_fleet_in_system = {
+					exists = owner
+					owner = {
+						has_country_flag = trader_enclave_country
+
+						trust = { 
+							who = root.owner
+							value >= 50
+						}
+					}
+				}
+			}
+		}
+
+		#empire has currently active deal with trader enclave
+		custom_tooltip = {
+			fail_text = "requires_trader_trade"
+			
+			OR = {
+				AND = {
+					#XuraCorp
+					solar_system = {
+						has_star_flag = enclave
+						any_fleet_in_system = {
+							exists = owner
+							owner = {
+								has_country_flag = trader_enclave_country
+								has_country_flag = trader_enclave_country_1
+							}
+						}
+					}
+		
+					owner = {
+						has_active_xuracorp_trade = yes
+					}
+				}
+				
+				AND = {
+					#Riggan
+					solar_system = {
+						has_star_flag = enclave
+						any_fleet_in_system = {
+							exists = owner
+							owner = {
+								has_country_flag = trader_enclave_country
+								has_country_flag = trader_enclave_country_2
+							}
+						}
+					}
+		
+					owner = {
+						has_active_riggan_trade = yes
+					}
+				}
+
+				AND = {
+					#Muutagan
+					solar_system = {
+						has_star_flag = enclave
+						any_fleet_in_system = {
+							exists = owner
+							owner = {
+								has_country_flag = trader_enclave_country
+								has_country_flag = trader_enclave_country_3
+							}
+						}
+					}
+		
+					owner = {
+						has_active_muutagan_trade = yes
+					}
+				}
+			}
+		}
+	}
+
+	country_modifier = {
+		envoys_add = 1
 	}
 
 	resources = {
@@ -64,10 +138,6 @@ trader_caravanserai = {
 		upkeep = {
 			energy = 2
 		}
-	}
-
-	country_modifier = {
-		envoys_add = 1
 	}
 	
 	ai_build_at_chokepoint = yes

@@ -3,6 +3,5 @@
  sm_trader_caravanserai_desc:0 "A bustling hub of trade and commerce in the spirit of free and open cooperation with the Trader Enclave will grant us an Envoy from the traders as a representative of our positive relations.\n"
  
  requires_trader:0 "§RRequires a §YTrader Enclave§! in the system.§!"
+ requires_trader_high_opinion:0 "§RRequires the §YTrader Enclave§! to have:§!\n£opinion£ Opinion +50"
  requires_trader_trade:0 "§RRequires an §Yactive Trade Deal§! with the local Trader Enclave.§!"
-
- envoy_taken:0 "Trader Envoy returned home"
